@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-
+from django.conf import settings
+import requests
+import json
 from django.contrib.auth import (
     authenticate,
     get_user_model,
@@ -13,7 +15,15 @@ from .forms import UserLoginForm, UserRegisterForm
 
 @login_required
 def home(request):
-    return render(request, "home.html", {})
+    response=requests.get('https://api.nasa.gov/planetary/apod?api_key='+settings.NASA_API_KEY)
+    loaded_json = json.loads(response.text)
+    daily_image=loaded_json.get('url')
+
+    context = {
+        'daily_image': daily_image,
+    }
+
+    return render(request, "home.html", context)
 
 def login_view(request):
     next = request.GET.get('next')
