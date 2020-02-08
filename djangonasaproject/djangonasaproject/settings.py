@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+from dotenv import load_dotenv
+load_dotenv()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -21,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'ac8-i7b2m%)a@w98-7d9@&r3!h)ul908frj%z^2s03ygbkd7z9'
-
+NASA_API_KEY = os.getenv('API_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
