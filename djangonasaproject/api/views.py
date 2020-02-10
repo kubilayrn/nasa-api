@@ -38,14 +38,16 @@ def home(request):
 @login_required
 def search_view(request):
     query = request.GET.get('q')
+
     if query:
         search_response = requests.get("https://images-api.nasa.gov/search?q="+query+'&media_type=image')
     else:
-        search_response = requests.get("https://images-api.nasa.gov/search?q=moon&media_type=image")
+        search_response = requests.get("https://images-api.nasa.gov/search?q=earth&media_type=image")
+
     loaded_json = json.loads(search_response.text)
     collection = loaded_json.get('collection')
     items = collection.get('items')
-    
+
     images=[]
     descriptions=[]
     titles=[]
@@ -55,7 +57,7 @@ def search_view(request):
         descriptions.append(i.get('data')[0].get('description'))
         titles.append(i.get('data')[0].get('title'))
 
-    images=list(zip(images,descriptions,titles))
+    images=list(zip(images,titles,descriptions))
     paginator = Paginator(images, 4)
     page = request.GET.get('page')
 

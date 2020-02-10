@@ -1,20 +1,21 @@
-
 {% extends "base.html" %}
 {% block style %}
 <style>
-.navbar-login{
-    width: 305px;
-    padding: 10px;
-    padding-bottom: 0px;
-}
-.navbar-login-session{
-    padding: 10px;
-    padding-bottom: 0px;
-    padding-top: 0px;
-}
-.icon-size{
-    font-size: 87px;
-}
+    .navbar-login {
+        width: 305px;
+        padding: 10px;
+        padding-bottom: 0px;
+    }
+
+    .navbar-login-session {
+        padding: 10px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+    }
+
+    .icon-size {
+        font-size: 87px;
+    }
 </style>
 {% endblock %}
 {% block content %}
@@ -31,13 +32,13 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li ><a href="/" >Home</a></li>
-                <li class = "active"><a href="/library" >Library</a></li>
-             </ul>
-            <ul class="nav navbar-nav navbar-right">        
+                <li><a href="/">Home</a></li>
+                <li class="active"><a href="/library">Library</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-user"></span> 
+                        <span class="glyphicon glyphicon-user"></span>
                         <strong>{{user.username}}</strong>
                         <span class="glyphicon glyphicon-chevron-down"></span>
                     </a>
@@ -51,7 +52,7 @@
                                         </p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <p class="text-left"><strong>Welcome</strong></p>
+                                        <p class="text-left"><strong>Welcome {{user.username}}</strong></p>
                                     </div>
                                 </div>
                             </div>
@@ -72,66 +73,76 @@
                 </li>
             </ul>
         </div>
-        
+
     </div>
 </div>
 <br><br><br>
-    
-    <div class="row">
-        <div class="col-md-12" style="text-align: center;">
-        
-                <form method="GET">
-                    <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search Here...">
-                    <input type="submit" value="Search">
-                </form>
-            
+
+<h2 style="text-align: center;">Nasa Image Library</h2>
+
+<div class="row">
+    <div class="col-md-12" style="text-align: center;">
+
+        <form method="GET">
+            <input type="search" name="q" value="{{ request.GET.q }}" placeholder="Search Here...">
+            <input type="submit" value="Search">
+        </form>
+
+    </div>
+</div>
+<hr>
+{% for image in images %}
+<div class="row" style="text-align: center; margin-top: 30px;">
+    <div class="box" style="border: 1;">
+
+
+        <div class="col-md-4">
+            <img class="img-thumbnail" style="max-height: 200;max-width: 200;" src="{{image.0}}" alt="">
+        </div>
+        <div class="col-md-8">
+            <h4>{{image.1}}</h4>
+            <p>{{image.2}}</p>
         </div>
     </div>
+</div>
 
-    {% for image in images %}
-    <div class="row" style="text-align: center;">
-        <div class="col-md-12">
-          <h4>{{image.1}}</h4>  
-            <img style="max-height: 200;max-width: 200;"src="{{image.0}}" alt="">
-            <br><br><br>
-        </div>
-        
-    </div>
-        
-        
 
-        {% endfor %}
-    
-    
 
-    
-    
+{% endfor %}
 
-    
-    {% if images.has_other_pages %}
+
+
+
+
+
+
+{% if images.has_other_pages %}
+<div class="row" style="text-align: center;">
     <ul class="pagination">
         {% if images.has_previous %}
-            <li class="waves-effect"><a href="?page=
-                    {{ images.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
-                    class="material-icons">chevron_left</i></a></li>
+        <li class="waves-effect"><a href="?page=
+                        {{ images.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
+                    class="material-icons">Left</i></a></li>
         {% else %}
-            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+        <li class="disabled"><a href="#!"><i class="material-icons">Left</i></a></li>
         {% endif %}
         {% for num in images.paginator.page_range %}
-            {% if images.number == num %}
-                <li class="active"><a href="#!">{{ num }}</a></li>
-            {% else %}
-                <li class="waves-effect"><a
-                        href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a></li>
-            {% endif %}
+        {% if images.number == num %}
+        <li class="active"><a href="#!">{{ num }}</a></li>
+        {% else %}
+        <li class="waves-effect"><a
+                href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a></li>
+        {% endif %}
         {% endfor %}
         {% if images.has_next %}
-            <li class="waves-effect"><a
-                    href="?page={{ images.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
-                    class="material-icons">chevron_right</i></a></li>
+        <li class="waves-effect"><a
+                href="?page={{ images.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
+                    class="material-icons">Right</i></a></li>
         {% else %}
-            <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        <li class="disabled"><a href="#!"><i class="material-icons">Right</i></a></li>
         {% endif %}
     </ul>
+</div>
+
 {% endif %}
 {% endblock %}

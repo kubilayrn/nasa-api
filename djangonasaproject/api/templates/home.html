@@ -80,13 +80,11 @@
     <div class="row">
         <div class="col-md-12" style="text-align: center;">
                 <h2>Astronomy Picture of the {{date}} </h2>
+                <hr>
                 <h4>{{title}}</h4>
-                <img style="width:500px; ;"src="{{daily_image}}" alt="">
+                <img class="img-thumbnail" style="max-width: 500; max-height: 500;"src="{{daily_image}}" alt="">
                 <p>@{{owner}}</p>
-                <p>{{explanation}}</p>
-                
-                
-            
+                <p>{{explanation}}</p> 
         </div>
     </div>
 {% endblock %}
