@@ -32,8 +32,8 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class = "active"><a href="#" >Home</a></li>
-                <li><a href="#" >Library</a></li>
+                <li class = "active"><a href="/" >Home</a></li>
+                <li><a href="/library" >Library</a></li>
              </ul>
             <ul class="nav navbar-nav navbar-right">        
                 <li class="dropdown">
@@ -52,7 +52,7 @@
                                         </p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <p class="text-left"><strong>Welcome</strong></p>
+                                        <p class="text-left"><strong>Welcome {{user.username}}</strong></p>
                                     </div>
                                 </div>
                             </div>
@@ -86,16 +86,6 @@
                 <p>{{explanation}}</p>
                 
                 
-            
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12" style="text-align: center;">
-        
-                <form method="GET">
-                    <input type="text" name="q" placeholder="Search photo">
-                    <input type="submit" value="Search">
-                </form>
             
         </div>
     </div>
